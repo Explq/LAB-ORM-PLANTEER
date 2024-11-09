@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-4">All Plants</h1>
+
+    <!-- Plant Filter Form (with icons) -->
+    <form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-4">
+            <input type="text" name="query" class="form-control" placeholder="Search plants" value="{{ query }}">
+        </div>
+        <div class="col-md-4">
+            <select name="category" class="form-control">
+                <option value="">All Categories</option>
+                <option value="Flower" {% if category_filter == 'Flower' %}selected{% endif %}>🌸 Flower</option>
+                <option value="Tree" {% if category_filter == 'Tree' %}selected{% endif %}>🌳 Tree</option>
+                <option value="Shrub" {% if category_filter == 'Shrub' %}selected{% endif %}>🌿 Shrub</option>
+                <option value="Vegetable" {% if category_filter == 'Vegetable' %}selected{% endif %}>🥕 Vegetable</option>
+                <option value="Herb" {% if category_filter == 'Herb' %}selected{% endif %}>🌿 Herb</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select name="is_edible" class="form-control">
+                <option value="">All Edible Status</option>
+                <option value="true" {% if is_edible_filter == 'true' %}selected{% endif %}>🍴 Edible</option>
+                <option value="false" {% if is_edible_filter == 'false' %}selected{% endif %}>❌ Not Edible</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Filter</button>
+</form>
+
+
+    <!-- Plant Cards -->
+    <div class="row">
+        {% for plant in page_obj %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ plant.image.url }}" class="card-img-top" alt="{{ plant.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ plant.name }}</h5>
+                        <p class="card-text">{{ plant.about|truncatewords:15 }}</p>
+                        <a href="{% url 'plants:plant_detail' plant.id %}" class="btn btn-primary">View Details</a>
+                        <!-- Add Edit and Delete buttons -->
+                        <a href="{% url 'plants:update_plant' plant.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'plants:delete_plant' plant.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {% for page_num in page_obj.paginator.page_range %}
+            <a href="?page={{ page_num }}&category={{ category_filter }}&is_edible={{ is_edible_filter }}&query={{ query }}" class="page-link {% if page_obj.number == page_num %} active {% endif %}">{{ page_num }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}

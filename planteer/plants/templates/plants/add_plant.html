@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Add New Plant</h1>
+
+    <!-- Display the success message if form is valid -->
+    {% if form.is_valid %}
+        <div class="alert alert-success">
+            <strong>Success!</strong> The plant has been added.
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Display form fields with better styling -->
+        <div class="form-group">
+            {{ form.name.label_tag }}  <!-- Label for Name -->
+            {{ form.name }}  <!-- Input field for Name -->
+        </div>
+
+        <div class="form-group">
+            {{ form.about.label_tag }}  <!-- Label for About -->
+            {{ form.about }}  <!-- Input field for About -->
+        </div>
+
+        <div class="form-group">
+            {{ form.used_for.label_tag }}  <!-- Label for Used For -->
+            {{ form.used_for }}  <!-- Input field for Used For -->
+        </div>
+
+        <div class="form-group">
+            {{ form.category.label_tag }}  <!-- Label for Category -->
+            {{ form.category }}  <!-- Input field for Category -->
+        </div>
+
+        <div class="form-group">
+            {{ form.is_edible.label_tag }}  <!-- Label for Is Edible -->
+            {{ form.is_edible }}  <!-- Input field for Is Edible -->
+        </div>
+
+        <div class="form-group">
+            {{ form.image.label_tag }}  <!-- Label for Image -->
+            {{ form.image }}  <!-- Input field for Image -->
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Plant</button>
+    </form>
+{% endblock %}

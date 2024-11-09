@@ -1,0 +1,29 @@
+/* Navigation Styling */
+.navbar {
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.nav-link {
+    color: #555;
+    font-weight: 500;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.nav-link:hover, .nav-item.active .nav-link {
+    color: #fff; /* Change text color on hover */
+    background-color: #28a745; /* Background color on hover */
+    border-radius: 5px; /* Optional: Adds rounded corners to hover effect */
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    background-color: #218838; /* Highlight the active menu item */
+    color: white;
+}
+

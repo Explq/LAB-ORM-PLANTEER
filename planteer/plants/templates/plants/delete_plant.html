@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Delete Plant: {{ plant.name }}</h1>
+    <p>Are you sure you want to delete this plant?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'plants:all_plants' %}">Cancel</a>
+    </form>
+{% endblock %}
